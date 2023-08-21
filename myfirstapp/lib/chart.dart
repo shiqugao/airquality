@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:intl/intl.dart';
-import 'main.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'dart:convert';
 
@@ -26,16 +25,17 @@ class _FolderListScreenAnalysisState extends State<FolderListScreenAnalysis> {
   }
 
   Future<List<String>> fetchFolders() async {
-    print("p");
-    ListResult result = await FirebaseStorage.instance.ref().listAll();
-    print('p1');
-    List<String> folders =
-    result.prefixes.map((folder) => folder.name).toList();
-    // Sort the folders list based on the date in descending order
-    // Sort the folders list based on the month (substring from index 3 to 5) and then on the date (substring from index 0 to 2)
+    List<String> folders = [];
 
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('2023-07-25').get();
 
+    for (QueryDocumentSnapshot collectionSnapshot in querySnapshot.docs) {
+      folders.add(collectionSnapshot.id);
+    }
+
+    print(folders);
     return folders;
+
   }
 
   @override
@@ -143,14 +143,9 @@ class _SingleDeviceGraphState extends State<SingleDeviceGraph> {
   }
 
   Future<void> _fetchData() async {
-
+print("object");
     QuerySnapshot snapshot = await FirebaseFirestore.instance
-        .collection('20' +
-        widget.folderName.toString().substring(6, 8) +
-        '-' +
-        widget.folderName.toString().substring(3, 5) +
-        '-' +
-        widget.folderName.toString().substring(0, 2))
+        .collection('2023-07-28')
         .get();
     List<DeviceData> data = [];
     snapshot.docs.forEach((doc) {
@@ -194,11 +189,9 @@ String date=doc.id;
         );
       }
     });
-
     setState(() {
       _data = data;
     });
-
   }
 
   @override
@@ -210,14 +203,14 @@ String date=doc.id;
         child: Column(
           children: [
             _buildGraph(
-                _data, 'Temperature (°C)', Colors.red, 'temperature'),
+                _data, 'Temperature', Colors.red, 'temperature'),
             _buildGraph(
-                _data, 'Humidity (%)', Colors.lightBlue, 'humidity'),
-            _buildGraph(_data, 'TDS (ppm)', Colors.orange, 'PM1'),
+                _data, 'Humidity', Colors.lightBlue, 'humidity'),
+            _buildGraph(_data, 'PM1', Colors.orange, 'PM1'),
             _buildGraph(
-                _data, 'Water level (cm)', Colors.blue, 'PM25'),
+                _data, 'PM2.5', Colors.blue, 'PM25'),
             _buildGraph(
-                _data, 'Water level (cm)', Colors.blue, 'PM10'),
+                _data, 'PM10', Colors.blue, 'PM10'),
             SizedBox(
               height: MediaQuery.of(context).padding.bottom,
             ),
@@ -319,11 +312,11 @@ String date=doc.id;
               return data.PM1;
             case 'PM10':
               return data.PM10;
-            case 'Humidity (%)':
+            case 'Humidity':
               return data.humidity;
-            case 'Temperature (°C)':
+            case 'Temperature':
               return data.temperature;
-            case ' PM2.5':
+            case 'PM2.5':
               return data.PM25;
             default:
               return 0.0;

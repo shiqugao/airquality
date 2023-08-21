@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "296448643062",
+    "firebase_url": "https://airquality-ad334-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "airquality-ad334",
+    "storage_bucket": "airquality-ad334.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:296448643062:android:7514d42539a335400a41d7",
+        "android_client_info": {
+          "package_name": "com.example.myfirstapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "296448643062-bli4k0hfjf4hhlutaikbamdc9nsanrmv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAcDmOkeM9t91eyLvcf0u_JlJY3dn0MZUg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "296448643062-bli4k0hfjf4hhlutaikbamdc9nsanrmv.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "296448643062-ro1m046kt3878vmcu1e4kgpi349bqqf1.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.myfirstapp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

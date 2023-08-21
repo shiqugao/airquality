@@ -114,7 +114,7 @@ class MyHomePage extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => FolderListScreenAnalysis(), // Navigate to the ChartPage
+                    builder: (context) => const SingleDeviceGraph(folderName: "2023-07-26"), // Navigate to the ChartPage
                   ),
                 );
               },
