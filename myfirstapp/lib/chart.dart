@@ -315,15 +315,15 @@ String date=doc.id;
         xValueMapper: (DeviceData data, _) => data.date,
         yValueMapper: (DeviceData data, _) {
           switch (variable) {
-            case 'TDS (ppm)':
+            case 'PM1':
               return data.PM1;
-            case 'Water level (cm)':
+            case 'PM10':
               return data.PM10;
             case 'Humidity (%)':
               return data.humidity;
             case 'Temperature (°C)':
               return data.temperature;
-            case ' (°C)':
+            case ' PM2.5':
               return data.PM25;
             default:
               return 0.0;
