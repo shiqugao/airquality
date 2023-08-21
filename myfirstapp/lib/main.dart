@@ -1,4 +1,7 @@
+//
+//
 // import 'package:flutter/material.dart';
+// import 'chart.dart';
 // import 'pm_page.dart';
 //
 // void main() {
@@ -26,29 +29,47 @@
 //         title: Text('MQTT Example'),
 //       ),
 //       body: Center(
-//         child: ElevatedButton(
-//           child: Text('Open PM Page'),
-//           onPressed: () {
-//             Navigator.push(
-//               context,
-//               MaterialPageRoute(
-//                 builder: (context) => PMPage(
-//                 ),
-//               ),
-//             );
-//           },
+//         child: Column(
+//           mainAxisAlignment: MainAxisAlignment.center,
+//           children: [
+//             ElevatedButton(
+//               child: Text('Open PM Page'),
+//               onPressed: () {
+//                 Navigator.push(
+//                   context,
+//                   MaterialPageRoute(
+//                     builder: (context) => PMPage(),
+//                   ),
+//                 );
+//               },
+//             ),
+//             SizedBox(height: 16),
+//
+//           ],
 //         ),
 //       ),
 //     );
 //   }
 // }
+//
+//
 
 import 'package:flutter/material.dart';
-import 'control.dart';
+import 'chart.dart';
 import 'pm_page.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() {
+import 'firebase_options.dart';
+
+
+void main() async {
   runApp(MyApp());
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  ).whenComplete(() {
+    print("completedAppInitialize");
+  });
+
 }
 
 class MyApp extends StatelessWidget {
@@ -88,16 +109,17 @@ class MyHomePage extends StatelessWidget {
             ),
             SizedBox(height: 16),
             ElevatedButton(
-              child: Text('Control Smart Plug'),
+              child: Text('Open Chart Page'), // Add a button to open the ChartPage
               onPressed: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => ControlPage(),
+                    builder: (context) => FolderListScreenAnalysis(), // Navigate to the ChartPage
                   ),
                 );
               },
             ),
+            // Add more widgets here if needed
           ],
         ),
       ),
