@@ -27,16 +27,19 @@ class _FolderListScreenAnalysisState extends State<FolderListScreenAnalysis> {
   Future<List<String>> fetchFolders() async {
     List<String> folders = [];
 
-    QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('2023-07-25').get();
+    DateTime currentDate = DateTime.now();
+    DateTime startDate = DateTime(2023, 7, 25); // Replace with your desired start date
 
-    for (QueryDocumentSnapshot collectionSnapshot in querySnapshot.docs) {
-      folders.add(collectionSnapshot.id);
+    while (startDate.isBefore(currentDate)) {
+      String folderName = DateFormat('yyyy-MM-dd').format(startDate);
+      folders.add(folderName);
+      startDate = startDate.add(Duration(days: 1));
     }
 
     print(folders);
     return folders;
-
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -107,9 +110,9 @@ class _FolderListScreenAnalysisState extends State<FolderListScreenAnalysis> {
 
 class DeviceData {
   final String date;
-  final double PM1;
-  final double PM25;
-  final double PM10;
+  final int PM1;
+  final int PM25;
+  final int PM10;
   final double temperature;
   final double humidity;
 
@@ -143,9 +146,10 @@ class _SingleDeviceGraphState extends State<SingleDeviceGraph> {
   }
 
   Future<void> _fetchData() async {
-print("object");
+    print(widget.folderName.toString().substring(0, 8));
     QuerySnapshot snapshot = await FirebaseFirestore.instance
-        .collection('2023-07-28')
+        .collection(
+        widget.folderName.toString().substring(0, 10))
         .get();
     List<DeviceData> data = [];
     snapshot.docs.forEach((doc) {
@@ -157,9 +161,9 @@ String date=doc.id;
 
         Map<String, dynamic> jsonData = jsonDecode(p);
 
-        double pm1 = jsonData['PM1'];
-        double pm25 = jsonData['PM2.5'];
-        double pm10 = jsonData['PM10'];
+        int pm1 = jsonData['PM1'];
+        int pm25 = jsonData['PM2.5'];
+        int pm10 = jsonData['PM10'];
         int mq135SensorValue = jsonData['MQ135_SensorValue'];
         double mq135Voltage = jsonData['MQ135_Voltage'];
         double mq135PPM = jsonData['MQ135_PPM'];

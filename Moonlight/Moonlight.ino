@@ -221,7 +221,7 @@ void green() {
 
   for(int i=0; i<NUMPIXELS; i++) {
 
-    pixels.setPixelColor(i, pixels.Color(0, 250, 0));
+    pixels.setPixelColor(i, pixels.Color(0, 150, 0));
 
   }
         pixels.show();
@@ -230,12 +230,15 @@ void green() {
 void loop(){
   if (airQ == 1){
   green();
+  Serial.println(airQ);
   }
   if (airQ == 2 ){
     yellow();
+    Serial.println(airQ);
   }
   if(airQ == 3){
     red();
+    Serial.println(airQ);
   }
   client.loop();
 }
